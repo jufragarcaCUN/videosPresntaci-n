@@ -1,8 +1,8 @@
 """
 Dashboard - Presentación
 Página de introducción, articulación pedagógica (4 Pilares + Preguntas CUN Experience),
-modelos de IA, tarjetas ejecutivas y modales con fundamento científico.
-Versión con Opción 1 (Informal/Coloquial), Opción 2 (Formal/Institucional) y Opción 3 (Súper Sencilla) - TRES VERSIONES VISIBLES
+modelos de IA/MALA, tarjetas ejecutivas y modales con fundamento científico.
+Versión con Opción 1 (Informal/Coloquial) y Opción 2 (Formal/Institucional) - AMBAS VISIBLES
 """
 
 import warnings
@@ -21,48 +21,71 @@ st.set_page_config(
 )
 
 # ====================================================================
-# DICCIONARIO DE PREGUNTAS CUN - TRES VERSIONES
+# DICCIONARIO DE PREGUNTAS ORIGINALES CDIGITAL
+# ====================================================================
+PREGUNTAS_CDIGITAL_ORIGINALES = {
+    "CD1": {
+        "texto": "Escoge la carita con la que más te sientas identificado(a) frente a los recursos y estrategias usadas por tu docente en este curso.",
+        "eje_original": "Docente + Recursos",
+    },
+    "CD2": {
+        "texto": "Déjanos saber qué tan chévere, cool o asertivo es tu docente en sus clases, escogiendo uno de los siguientes emoticones.",
+        "eje_original": "Docente",
+    },
+    "CD3": {
+        "texto": "Indícanos qué tan simple es la navegación por los contenidos y diferentes recursos que presentamos para ti en el curso.",
+        "eje_original": "Plataforma",
+    },
+}
+
+# ====================================================================
+# DICCIONARIO DE PREGUNTAS REDISEÑADAS CUN (k=5)
 # ====================================================================
 PREGUNTAS_CUN = {
     "P1": {
         "opcion_1": "¿El profe hizo pausas en la clase para resolver dudas, hacer preguntas o poner ejercicios prácticos?",
-        "opcion_2": "El facilitador realizó pausas periódicas durante la sesión para responder inquietudes, realizar preguntas o promover actividades prácticas.",
-        "opcion_3": "¿Tu profe es divertido y permite que todos tus compañeros interactúen?",
+        "opcion_2": "El docente realizó pausas periódicas durante la sesión para atender inquietudes, formular preguntas o promover actividades prácticas.",
         "pilar": "Aprendizaje Activo",
+        "eje_cdigital": "Docente",
         "metricas": ["DME_s", "DTE_ratio"],
         "icono": "🎙️",
+        "cdigital_key": "CD1",
     },
     "P2": {
         "opcion_1": "¿La forma de explicar del profe y la actitud que le puso a la clase hicieron que no te distrajeras?",
-        "opcion_2": "El dinamismo de la explicación y el entusiasmo demostrado por el facilitador facilitaron mantener el foco de atención durante la sesión.",
-        "opcion_3": "Tu profe es súper dinámico, logró mantener tu atención",
+        "opcion_2": "La modulación de la voz y la actitud del docente facilitaron mantener el foco atencional durante el desarrollo de la sesión.",
         "pilar": "Neuroeducación y Atención",
+        "eje_cdigital": "Docente",
         "metricas": ["Tone_CoV", "Enthusiasm_Score"],
         "icono": "🗣️",
+        "cdigital_key": "CD2",
     },
     "P3": {
-        "opcion_1": "¿El profe varió los recursos visuales (diapositivas, imágenes, ejemplos) para que la clase no se sintiera plana o repetitiva?",
-        "opcion_2": "El facilitador utilizó una variedad de recursos visuales y didácticos (diapositivas, imágenes, diagramas, ejemplos) que mantuvieron el interés y facilitaron la comprensión de los contenidos.",
-        "opcion_3": "¿El profe cambió de diapositiva o usó imágenes y ejemplos para que la clase no fuera siempre lo mismo?",
-        "pilar": "Dinamismo Visual y Recursos",
+        "opcion_1": "¿El profe usó bien la cámara y se expresó con las manos y el cuerpo para hacer la clase dinámica?",
+        "opcion_2": "La expresividad corporal del docente frente a la cámara y el uso de gestos contribuyeron a una comunicación dinámica.",
+        "pilar": "Cognición Encarnada",
+        "eje_cdigital": "Docente",
         "metricas": ["IMP_promedio", "sigma2_IM"],
-        "icono": "🖼️",
+        "icono": "🧍",
+        "cdigital_key": None,
     },
     "P4": {
-        "opcion_1": "¿La clase se transmitió bien (el audio, el video y la pantalla compartida) sin trabarse ni cortarse?",
-        "opcion_2": "La transmisión de la clase (calidad de audio, fluidez de video y pantalla compartida) se mantuvo constante y sin interrupciones técnicas.",
-        "opcion_3": "¿La clase no se trabó ni se cortó? Todo fluyó bien",
-        "pilar": "Carga Cognitiva Extraña",
+        "opcion_1": "¿La plataforma y la transmisión (audio, video y material) funcionaron de forma fluida y sin trabarse?",
+        "opcion_2": "La calidad de transmisión (audio, video y visualización de materiales) se mantuvo estable y sin interrupciones técnicas.",
+        "pilar": "Carga Cognitiva y Usabilidad",
+        "eje_cdigital": "Plataforma",
         "metricas": ["Jitter_Score"],
         "icono": "💻",
+        "cdigital_key": "CD3",
     },
     "P5": {
-        "opcion_1": "¿El profe explicó los temas con ejemplos claros y te mostró cómo aplicarlos en la vida real, o solo te leyó lo que ya estaba en las diapositivas?",
-        "opcion_2": "El facilitador presentó los contenidos con claridad, utilizando ejemplos pertinentes y aplicaciones prácticas que permitieron conectar la nueva información con los conocimientos previos de los estudiantes, facilitando así un aprendizaje significativo.",
-        "opcion_3": "¿El profe te explicó con ejemplos que entendiste y te dijo para qué sirve lo que estabas viendo?",
-        "pilar": "Aprendizaje Significativo - Claridad y Aplicación",
-        "metricas": [],
-        "icono": "📚",
+        "opcion_1": "En general, ¿qué tan satisfecho(a) quedaste con el desarrollo de esta sesión de clase?",
+        "opcion_2": "Valoración global de la satisfacción con el desarrollo y dinámica de la sesión de clase.",
+        "pilar": "Satisfacción Global (Ancla)",
+        "eje_cdigital": "Satisfacción",
+        "metricas": ["Score_Integrado_MBE"],
+        "icono": "⭐",
+        "cdigital_key": None,
     },
 }
 
@@ -76,9 +99,10 @@ MODELOS_INFO = {
         "icono": "🎙️",
         "categoria": "Audio / Interacción",
         "pilar": "Pilar 1: Aprendizaje Activo",
+        "eje_cdigital": "Docente",
         "sustento_neuropedagogico": "Las exposiciones ininterrumpidas prolongadas inducen pasividad atencional. Pausas cortas facilitan la consolidación en memoria de trabajo.",
-        "resumen": "Mide la duración promedio de las intervenciones habladas continuas del facilitador sin pausa o interrupción.",
-        "evalua": "Capacidad del facilitador para pausar y dar paso a la participación del estudiante.",
+        "resumen": "Mide la duración promedio de las intervenciones habladas continuas del docente sin pausa o interrupción.",
+        "evalua": "Capacidad del docente para pausar y dar paso a la participación del estudiante.",
         "bueno": "< 3.5 segundos entre pausas clave",
         "malo": "≥ 3.5 segundos de monólogo continuo",
         "autores": "Flanders, N. A. (1970)",
@@ -95,6 +119,7 @@ MODELOS_INFO = {
         "icono": "🗣️",
         "categoria": "Audio / Prosodia",
         "pilar": "Pilar 2: Neuroeducación",
+        "eje_cdigital": "Docente",
         "sustento_neuropedagogico": "El coeficiente de variación tonal evita el acostumbramiento atencional y mantiene receptiva la corteza auditiva.",
         "resumen": "Coeficiente de variación de la frecuencia fundamental (F0) para evaluar dinamismo acústico.",
         "evalua": "Rango y flexibilidad de entonación durante la clase.",
@@ -114,9 +139,10 @@ MODELOS_INFO = {
         "icono": "🔥",
         "categoria": "Audio / Entusiasmo",
         "pilar": "Pilar 2: Neuroeducación",
+        "eje_cdigital": "Docente",
         "sustento_neuropedagogico": "El entusiasmo percibido estimula el sistema límbico e incrementa la motivación intrínseca del estudiante.",
         "resumen": "Puntaje compuesto de energía acústica e intensidad sonora promedio.",
-        "evalua": "Nivel de vitalidad y proyección de la voz del facilitador.",
+        "evalua": "Nivel de vitalidad y proyección de la voz del docente.",
         "bueno": "> 0.15 de índice de energía",
         "malo": "≤ 0.15 (proyección baja o apática)",
         "autores": "Immordino-Yang, M. H., & Damasio, A. (2007)",
@@ -133,9 +159,10 @@ MODELOS_INFO = {
         "icono": "🤝",
         "categoria": "Audio / Diarización",
         "pilar": "Pilar 1: Aprendizaje Activo",
+        "eje_cdigital": "Docente",
         "sustento_neuropedagogico": "El equilibrio en el tiempo de habla promueve el diálogo socrático y la co-construcción del conocimiento.",
-        "resumen": "Proporción de tiempo de habla del facilitador respecto al tiempo total de la sesión.",
-        "evalua": "Porcentaje del tiempo dominado por el facilitador frente a la participación de estudiantes.",
+        "resumen": "Proporción de tiempo de habla del docente respecto al tiempo total de la sesión.",
+        "evalua": "Porcentaje del tiempo dominado por el profesor frente a la participación de estudiantes.",
         "bueno": "≤ 50% de uso del tiempo total",
         "malo": "> 50% de uso exclusivo del canal",
         "autores": "Vygotsky, L. S. (1978)",
@@ -151,15 +178,16 @@ MODELOS_INFO = {
         "nombre_gerencial": "Presencia Corporal",
         "icono": "🧍",
         "categoria": "Video / Visión Artificial",
-        "pilar": "Pilar 3: Dinamismo Visual y Recursos",
-        "sustento_neuropedagogico": "La variación de estímulos visuales mantiene la atención y facilita la comprensión. Un solo formato genera fatiga y desconexión.",
+        "pilar": "Pilar 3: Cognición Encarnada",
+        "eje_cdigital": "Docente",
+        "sustento_neuropedagogico": "Los gestos facilitan la comprensión conceptual al acompañar la carga del habla con señales visuales.",
         "resumen": "Promedio de movimiento e intensidad de movimiento corporal detectado por visión por computadora.",
         "evalua": "Gesticulación y postura corporal frente a cámara.",
         "bueno": "> 4.0 puntos de movilidad",
         "malo": "≤ 4.0 (movilidad muy estática)",
-        "autores": "Mayer, R. E. (2009)",
-        "cita_apa": "Mayer, R. E. (2009). Multimedia learning (2nd ed.). Cambridge University Press.",
-        "doi": "https://doi.org/10.1017/CBO9780511811678",
+        "autores": "Barsalou, L. W. (2008)",
+        "cita_apa": "Barsalou, L. W. (2008). Grounded cognition. Annual Review of Psychology, 59, 617–645.",
+        "doi": "https://doi.org/10.1146/annurev.psych.59.103006.093639",
         "limite": 4.0,
         "condicion": "mayor",
         "corto": "Presencia",
@@ -170,15 +198,16 @@ MODELOS_INFO = {
         "nombre_gerencial": "Dinamismo y Ritmo",
         "icono": "🔄",
         "categoria": "Video / Cinemática",
-        "pilar": "Pilar 3: Dinamismo Visual y Recursos",
+        "pilar": "Pilar 3: Cognición Encarnada",
+        "eje_cdigital": "Docente",
         "sustento_neuropedagogico": "La variabilidad del movimiento mantiene el foco atencional evitando patrones corporales monótonos.",
         "resumen": "Varianza de la intensidad de movimiento en secuencias de video.",
         "evalua": "Fluidez y ritmo de los desplazamientos y expresiones corporales.",
         "bueno": "> 8.5 de varianza de movimiento",
         "malo": "≤ 8.5 (postura rígida)",
-        "autores": "Mayer, R. E. (2009)",
-        "cita_apa": "Mayer, R. E. (2009). Multimedia learning (2nd ed.). Cambridge University Press.",
-        "doi": "https://doi.org/10.1017/CBO9780511811678",
+        "autores": "Barsalou, L. W. (2008)",
+        "cita_apa": "Barsalou, L. W. (2008). Grounded cognition. Annual Review of Psychology, 59, 617–645.",
+        "doi": "https://doi.org/10.1146/annurev.psych.59.103006.093639",
         "limite": 8.5,
         "condicion": "mayor",
         "corto": "Dinamismo",
@@ -190,6 +219,7 @@ MODELOS_INFO = {
         "icono": "💻",
         "categoria": "Calidad Técnica / Streaming",
         "pilar": "Pilar 4: Carga Cognitiva Extraña",
+        "eje_cdigital": "Plataforma",
         "sustento_neuropedagogico": "Interrupciones o cortes técnicos consumen recursos atencionales que deberían ir hacia la comprensión académica.",
         "resumen": "Métrica de estabilidad de transmisión de fotogramas y señal de audio.",
         "evalua": "Fluidez técnica del video y transmisión.",
@@ -203,21 +233,52 @@ MODELOS_INFO = {
         "corto": "Estabilidad",
         "pregunta_key": "P4",
     },
+    "Score_Integrado_MBE": {
+        "nombre": "Índice Sintético MBE",
+        "nombre_gerencial": "Índice Sintético del Modelo Bidireccional",
+        "icono": "⭐",
+        "categoria": "Síntesis / Multimodal",
+        "pilar": "Pilar 5: Satisfacción Global",
+        "eje_cdigital": "Satisfacción",
+        "sustento_neuropedagogico": "Índice compuesto que integra todas las métricas del Modelo Bidireccional de Evaluación para generar una calificación global.",
+        "resumen": "Puntaje sintético que pondera armónicamente todas las métricas de audio, video y estabilidad técnica.",
+        "evalua": "Desempeño integral del docente en la sesión.",
+        "bueno": "> 7.0 de índice global",
+        "malo": "≤ 5.0 de índice global",
+        "autores": "CUN - Modelo Bidireccional de Evaluación",
+        "cita_apa": "CUN (2026). Modelo Bidireccional de Evaluación: Integración de Analítica Multimodal. Documento Institucional.",
+        "doi": "https://doi.org/10.1207/s15516709cog1202_4",
+        "limite": 6.0,
+        "condicion": "mayor",
+        "corto": "Índice MBE",
+        "pregunta_key": "P5",
+    },
 }
 
+# ====================================================================
+# IMPORTAR TABLA COMPARATIVA
+# ====================================================================
+try:
+    from pages.tabla_comparativa import bondades_modelo
+except ImportError:
+    try:
+        from tabla_comparativa import bondades_modelo
+    except ImportError:
+        st.warning("⚠️ No se encuentra tabla_comparativa.py")
+        bondades_modelo = None
+
 
 # ====================================================================
-# FUNCIÓN PARA OBTENER LAS PREGUNTAS (TRES VERSIONES)
+# FUNCIÓN PARA OBTENER LAS PREGUNTAS (AMBAS VERSIONES)
 # ====================================================================
 def obtener_preguntas(pregunta_key: str) -> tuple:
-    """Obtiene las tres versiones de una pregunta."""
+    """Obtiene ambas versiones de una pregunta."""
     if pregunta_key in PREGUNTAS_CUN:
         return (
             PREGUNTAS_CUN[pregunta_key]["opcion_1"],
             PREGUNTAS_CUN[pregunta_key]["opcion_2"],
-            PREGUNTAS_CUN[pregunta_key]["opcion_3"],
         )
-    return "Pregunta no encontrada", "Pregunta no encontrada", "Pregunta no encontrada"
+    return "Pregunta no encontrada", "Pregunta no encontrada"
 
 
 # ====================================================================
@@ -248,7 +309,6 @@ def inyectar_estilos():
         }
         .badge-opcion-1 { background-color: #fff3cd; color: #856404; }
         .badge-opcion-2 { background-color: #cce5ff; color: #004085; }
-        .badge-opcion-3 { background-color: #d1fae5; color: #065f46; }
         
         /* Tarjetas de modelos */
         .card-container {
@@ -258,7 +318,7 @@ def inyectar_estilos():
             padding: 18px;
             margin-bottom: 12px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            height: 280px;
+            height: 380px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -289,6 +349,13 @@ def inyectar_estilos():
             margin-top: 4px;
             margin-bottom: 6px;
         }
+        .card-eje-text {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #0d6efd;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
         .card-body-text {
             font-size: 0.85rem;
             color: #424242;
@@ -301,6 +368,28 @@ def inyectar_estilos():
             border-radius: 6px;
             margin-top: 6px;
         }
+        .card-pregunta {
+            font-size: 0.72rem;
+            color: #1a3a2a;
+            background-color: #f0f7f2;
+            padding: 5px 8px;
+            border-radius: 6px;
+            margin-top: 3px;
+            border-left: 3px solid #1a7a3a;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        .card-pregunta-op1 { border-left-color: #ffc107; background-color: #fffef0; }
+        .card-pregunta-op2 { border-left-color: #0d6efd; background-color: #f0f5ff; }
+        .label-opcion {
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            display: inline-block;
+        }
+        .label-op1 { color: #856404; }
+        .label-op2 { color: #004085; }
         
         /* Botones CUN */
         div.stButton > button {
@@ -376,7 +465,7 @@ def inyectar_estilos():
         .circulo-amarillo { background-color: #F59E0B; }
         .circulo-azul { background-color: #3B82F6; }
         .circulo-morado { background-color: #8B5CF6; }
-        .circulo-rosa { background-color: #EC4899; }
+        .circulo-rojo { background-color: #EF4444; }
         
         .badge-metrica {
             display: inline-block;
@@ -416,11 +505,6 @@ def inyectar_estilos():
             border-left: 4px solid #0d6efd;
             color: #003380;
         }
-        .pregunta-op3 {
-            background-color: #f0fdf4;
-            border-left: 4px solid #10b981;
-            color: #065f46;
-        }
         .label-pregunta {
             font-size: 0.6rem;
             font-weight: 700;
@@ -429,37 +513,6 @@ def inyectar_estilos():
         }
         .label-pregunta-op1 { color: #856404; }
         .label-pregunta-op2 { color: #004085; }
-        .label-pregunta-op3 { color: #065f46; }
-        
-        /* Tabla comparativa */
-        .tabla-comparativa {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 10px 0;
-            font-size: 0.8rem;
-        }
-        .tabla-comparativa th {
-            background-color: #1a7a3a;
-            color: white;
-            padding: 10px 12px;
-            text-align: left;
-            font-weight: 600;
-        }
-        .tabla-comparativa td {
-            padding: 8px 12px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .tabla-comparativa tr:hover {
-            background-color: #f0fdf4;
-        }
-        .tabla-comparativa .ventaja {
-            color: #065f46;
-            font-weight: 600;
-        }
-        .tabla-comparativa .brecha {
-            color: #7f1d1d;
-            font-weight: 600;
-        }
         
         /* CUN360 */
         .cun360-header {
@@ -560,161 +613,104 @@ def inyectar_estilos():
         .modal-recomendacion strong { color: #1a7a3a; }
         .modal-recomendacion ul { margin: 4px 0 0 0; padding-left: 20px; font-size: 0.85rem; }
         .modal-recomendacion li { margin: 2px 0; }
+        
+        /* Badges de ejes CDigital */
+        .badge-eje {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .badge-eje-docente { background-color: #dbeafe; color: #1e40af; }
+        .badge-eje-plataforma { background-color: #fce4ec; color: #b71c1c; }
+        .badge-eje-satisfaccion { background-color: #fef3c7; color: #92400e; }
+        
+        .texto-cdigital-original {
+            font-size: 0.82rem;
+            color: #78350f;
+            background-color: #fffbeb;
+            padding: 6px 10px;
+            border-radius: 6px;
+            border-left: 3px solid #d97706;
+            margin: 4px 0;
+            line-height: 1.3;
+        }
     </style>
     """,
         unsafe_allow_html=True,
     )
 
 
-def renderizar_banner_principal():
-    """Renderiza el banner principal de la aplicación."""
-    st.markdown(
-        """
-    <div class="banner-cun">
-        <h2 style="margin: 0; color: white; font-family: 'Montserrat', sans-serif; font-weight: 800;">📊 Inteligencia Académica CUN</h2>
-        <p style="margin: 8px 0 0 0; font-size: 1.05rem; font-family: 'Montserrat', sans-serif; font-weight: 300;">
-            Analítica avanzada de grabaciones para la toma de decisiones directivas y fortalecimiento del Capital Social
-        </p>
-    </div>
-    """,
-        unsafe_allow_html=True,
-    )
-
-
-def renderizar_version_preguntas():
-    """Renderiza el encabezado con las tres versiones de preguntas."""
-    st.markdown("### 📝 Versiones de las preguntas CUN Experience")
-
-    col_v1, col_v2, col_v3 = st.columns(3)
-    with col_v1:
-        st.markdown(
-            """
-        <div style="background-color: #fff3cd; padding: 12px 16px; border-radius: 10px; border: 2px solid #ffc107;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 24px;">🎓</span>
-                <div>
-                    <div style="font-weight: 700; color: #856404;">Opción 1: Versión Estudiantil</div>
-                    <div style="font-size: 0.8rem; color: #856404;">Lenguaje informal / coloquial Bogotá<br>Para estudiantes 15-25 años en LMS/móvil</div>
-                </div>
-            </div>
-        </div>
-        """,
-            unsafe_allow_html=True,
-        )
-    with col_v2:
-        st.markdown(
-            """
-        <div style="background-color: #cce5ff; padding: 12px 16px; border-radius: 10px; border: 2px solid #0d6efd;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 24px;">📋</span>
-                <div>
-                    <div style="font-weight: 700; color: #004085;">Opción 2: Versión Ejecutiva</div>
-                    <div style="font-size: 0.8rem; color: #004085;">Lenguaje formal / institucional<br>Para informes ejecutivos y acreditación</div>
-                </div>
-            </div>
-        </div>
-        """,
-            unsafe_allow_html=True,
-        )
-    with col_v3:
-        st.markdown(
-            """
-        <div style="background-color: #d1fae5; padding: 12px 16px; border-radius: 10px; border: 2px solid #10b981;">
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 24px;">🗣️</span>
-                <div>
-                    <div style="font-weight: 700; color: #065f46;">Opción 3: Versión Súper Sencilla</div>
-                    <div style="font-size: 0.8rem; color: #065f46;">Lenguaje coloquial extremo<br>Para pelados que quieren respuestas rápidas</div>
-                </div>
-            </div>
-        </div>
-        """,
-            unsafe_allow_html=True,
-        )
-    st.divider()
-
-
-def renderizar_proposito_estrategico():
-    """Renderiza el propósito estratégico para facilitadores y Capital Social."""
-    st.markdown("### 🎯 Propósito del Ecosistema Integrado")
-    col_doc, col_th = st.columns(2)
-    with col_doc:
-        st.info("""
-        **👨‍🏫 Para los Facilitadores:**
-        * Conocer el diagnóstico objetivo de sus clases grabadas.
-        * Recibir retroalimentación técnica, vocal y pedagógica.
-        * Guiar su plan de mejora continua de forma constructiva.
-        """)
-    with col_th:
-        st.success("""
-        **🏢 Para Talento Humano y Capital Social:**
-        * Triangular encuestas de percepción con métricas duras de IA.
-        * Diseñar programas de formación facilitadores a la medida.
-        * Fortalecer la excelencia académica institucional en la CUN.
-        """)
-    st.divider()
-
-
-def renderizar_cinco_tarjetas():
-    """
-    Renderiza las 5 tarjetas pedagógicas en una sola sección.
-    Tarjetas 1-4: Pilares CUN Experience (originales)
-    Tarjeta 5: Aprendizaje Significativo - Claridad y Aplicación (Ausubel)
-    """
-
+def renderizar_justificacion_pedagogica():
+    """Renderiza la justificación pedagógica con los 5 pilares, preguntas CDigital y CUN rediseñadas."""
     st.markdown(
         """
         <div class="banner-pedagogico">
-            <h2 style="color: white; margin: 0;">🎓 Fundamentación Neuropedagógica y Modelo Bidireccional de Evaluación Facilitador</h2>
+            <h2 style="color: white; margin: 0;">🎓 Modelo Bidireccional de Evaluación</h2>
             <p style="margin-top: 6px; font-size: 15px; opacity: 0.95;">
-                Integración de la percepción del estudiante (CUN Experience) con métricas objetivas de IA
+                De CDigital a CUN Experience: Transformación de la evaluación afectiva en diagnóstico pedagógico accionable
             </p>
             <div style="margin-top: 10px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                 <span><span class="badge-opcion badge-opcion-1">🎓 Opción 1: Estudiantil (Informal)</span></span>
                 <span><span class="badge-opcion badge-opcion-2">📋 Opción 2: Ejecutiva (Formal)</span></span>
-                <span><span class="badge-opcion badge-opcion-3">🗣️ Opción 3: Súper Sencilla</span></span>
             </div>
         </div>
         <div class="flecha-conector">▼</div>
-        """,
+    """,
         unsafe_allow_html=True,
     )
 
     st.markdown("""
-    El modelo de evaluación facilitador de la **CUN** trasciende la simple percepción subjetiva. Articula la 
-    evaluación de los estudiantes con la **Analítica Multimodal**, sustentando cada pregunta 
-    de encuesta y cada parámetro de Inteligencia Artificial en **5 Pilares Pedagógicos fundamentales**.
+    El modelo de evaluación docente de la **CUN** trasciende la simple percepción subjetiva. Articula la 
+    evaluación de los estudiantes con la **Analítica Multimodal del Aprendizaje**, sustentando cada pregunta 
+    de encuesta y cada parámetro de Inteligencia Artificial en **5 Pilares Pedagógicos fundamentales** 
+    alineados con los **3 ejes de CDigital** (Docente, Plataforma, Satisfacción).
     """)
     st.write("")
 
-    col1, col2 = st.columns(2)
+    # Obtener todas las preguntas
+    p1a, p1b = obtener_preguntas("P1")
+    p2a, p2b = obtener_preguntas("P2")
+    p3a, p3b = obtener_preguntas("P3")
+    p4a, p4b = obtener_preguntas("P4")
+    p5a, p5b = obtener_preguntas("P5")
 
-    p1a, p1b, p1c = obtener_preguntas("P1")
-    p2a, p2b, p2c = obtener_preguntas("P2")
-    p3a, p3b, p3c = obtener_preguntas("P3")
-    p4a, p4b, p4c = obtener_preguntas("P4")
-    p5a, p5b, p5c = obtener_preguntas("P5")
+    # Diccionario de textos originales CDigital
+    cd_textos = {
+        "CD1": PREGUNTAS_CDIGITAL_ORIGINALES["CD1"]["texto"],
+        "CD2": PREGUNTAS_CDIGITAL_ORIGINALES["CD2"]["texto"],
+        "CD3": PREGUNTAS_CDIGITAL_ORIGINALES["CD3"]["texto"],
+    }
+
+    # Primera fila: 3 columnas
+    col1, col2, col3 = st.columns(3)
 
     with col1:
-        # ============================================================
-        # TARJETA 1: Aprendizaje Activo
-        # ============================================================
         st.markdown(
             f"""
             <div class="tarjeta-pilar" style="border-left-color: #10B981;">
                 <div class="circulo-icono circulo-verde">1</div>
-                <h4 style="margin: 0 0 6px 0; color: #065F46;">Aprendizaje Activo y Socio-Constructivismo</h4>
+                <h4 style="margin: 0 0 4px 0; color: #065F46;">Aprendizaje Activo</h4>
+                <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 6px;">
+                    <span class="badge-eje badge-eje-docente">🎯 Eje CDigital: Docente</span>
+                </div>
+                <div style="margin: 4px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #78350f;">🔴 CDigital actual:</div>
+                    <div class="texto-cdigital-original">"{cd_textos['CD1']}"</div>
+                </div>
                 <div style="margin: 6px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #065f46;">✅ CUN rediseñada:</div>
                     <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p1a}</div>
                     <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p1b}</div>
-                    <div class="pregunta-cun pregunta-op3"><span class="label-pregunta label-pregunta-op3">🗣️ Opción 3:</span> {p1c}</div>
                 </div>
-                <hr style="margin: 8px 0;">
-                <p style="font-size: 12.5px; color: #4B5563;">
-                    <b>🧠 Sustento:</b> Las exposiciones ininterrumpidas mayores a 10 min inducen acomodación pasiva. El aprendizaje activo requiere que el estudiante procese y argumente en memoria de trabajo (Vygotsky, 1978; Flanders, 1970).
+                <hr style="margin: 6px 0;">
+                <p style="font-size: 12px; color: #4B5563; margin: 0;">
+                    <b>🧠 Sustento:</b> Las exposiciones ininterrumpidas prolongadas inducen pasividad atencional. Pausas cortas facilitan la consolidación en memoria de trabajo.
                 </p>
-                <p style="font-size: 12px; margin-top: 6px; margin-bottom: 0;">
-                    <b>⚙️ Métricas de IA:</b> 
+                <p style="font-size: 11px; margin-top: 4px; margin-bottom: 0;">
+                    <b>⚙️ Métricas IA:</b> 
                     <span class="badge-metrica">DME_s &lt; 3.5s</span>
                     <span class="badge-metrica">DTE_ratio ≤ 50%</span>
                 </p>
@@ -723,53 +719,30 @@ def renderizar_cinco_tarjetas():
             unsafe_allow_html=True,
         )
 
-        # ============================================================
-        # TARJETA 3: Dinamismo Visual y Recursos (antes Cognición Encarnada)
-        # ============================================================
-        st.markdown(
-            f"""
-            <div class="tarjeta-pilar" style="border-left-color: #3B82F6;">
-                <div class="circulo-icono circulo-azul">3</div>
-                <h4 style="margin: 0 0 6px 0; color: #1E40AF;">Dinamismo Visual y Recursos</h4>
-                <div style="margin: 6px 0;">
-                    <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p3a}</div>
-                    <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p3b}</div>
-                    <div class="pregunta-cun pregunta-op3"><span class="label-pregunta label-pregunta-op3">🗣️ Opción 3:</span> {p3c}</div>
-                </div>
-                <hr style="margin: 8px 0;">
-                <p style="font-size: 12.5px; color: #4B5563;">
-                    <b>🧠 Sustento:</b> La variación de estímulos visuales mantiene la atención y facilita la comprensión. Un solo formato (ej. solo texto) genera fatiga y desconexión. La alternancia entre diapositivas, imágenes, diagramas y ejemplos prácticos activa diferentes canales de procesamiento (Mayer, 2009).
-                </p>
-                <p style="font-size: 12px; margin-top: 6px; margin-bottom: 0;">
-                    <b>⚙️ Métricas de IA:</b> 
-                    <span class="badge-metrica">IMP_promedio &gt; 4.0</span>
-                    <span class="badge-metrica">sigma2_IM &gt; 8.5</span>
-                </p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
     with col2:
-        # ============================================================
-        # TARJETA 2: Neuroeducación
-        # ============================================================
         st.markdown(
             f"""
             <div class="tarjeta-pilar" style="border-left-color: #F59E0B;">
                 <div class="circulo-icono circulo-amarillo">2</div>
-                <h4 style="margin: 0 0 6px 0; color: #92400E;">Neuroeducación y Captura de la Atención</h4>
+                <h4 style="margin: 0 0 4px 0; color: #92400E;">Neuroeducación y Atención</h4>
+                <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 6px;">
+                    <span class="badge-eje badge-eje-docente">🎯 Eje CDigital: Docente</span>
+                </div>
+                <div style="margin: 4px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #78350f;">🔴 CDigital actual:</div>
+                    <div class="texto-cdigital-original">"{cd_textos['CD2']}"</div>
+                </div>
                 <div style="margin: 6px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #065f46;">✅ CUN rediseñada:</div>
                     <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p2a}</div>
                     <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p2b}</div>
-                    <div class="pregunta-cun pregunta-op3"><span class="label-pregunta label-pregunta-op3">🗣️ Opción 3:</span> {p2c}</div>
                 </div>
-                <hr style="margin: 8px 0;">
-                <p style="font-size: 12.5px; color: #4B5563;">
-                    <b>🧠 Sustento:</b> El sistema atencional (SARA) filtra tonos monótonos para ahorrar energía metabólica. Las modulaciones de entonación e intensidad actúan como estímulos re-activadores de la atención (Scherer, 2003).
+                <hr style="margin: 6px 0;">
+                <p style="font-size: 12px; color: #4B5563; margin: 0;">
+                    <b>🧠 Sustento:</b> El sistema atencional filtra tonos monótonos para ahorrar energía. Las modulaciones de entonación actúan como estímulos re-activadores.
                 </p>
-                <p style="font-size: 12px; margin-top: 6px; margin-bottom: 0;">
-                    <b>⚙️ Métricas de IA:</b> 
+                <p style="font-size: 11px; margin-top: 4px; margin-bottom: 0;">
+                    <b>⚙️ Métricas IA:</b> 
                     <span class="badge-metrica">Tone_CoV &gt; 0.32</span>
                     <span class="badge-metrica">Enthusiasm &gt; 0.15</span>
                 </p>
@@ -778,25 +751,65 @@ def renderizar_cinco_tarjetas():
             unsafe_allow_html=True,
         )
 
-        # ============================================================
-        # TARJETA 4: Carga Cognitiva
-        # ============================================================
+    with col3:
+        st.markdown(
+            f"""
+            <div class="tarjeta-pilar" style="border-left-color: #3B82F6;">
+                <div class="circulo-icono circulo-azul">3</div>
+                <h4 style="margin: 0 0 4px 0; color: #1E40AF;">Cognición Encarnada</h4>
+                <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 6px;">
+                    <span class="badge-eje badge-eje-docente">🎯 Eje CDigital: Docente</span>
+                </div>
+                <div style="margin: 4px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #78350f;">🔴 CDigital actual:</div>
+                    <div class="texto-cdigital-original">(No existía en CDigital - Nueva dimensión)</div>
+                </div>
+                <div style="margin: 6px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #065f46;">✅ CUN rediseñada:</div>
+                    <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p3a}</div>
+                    <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p3b}</div>
+                </div>
+                <hr style="margin: 6px 0;">
+                <p style="font-size: 12px; color: #4B5563; margin: 0;">
+                    <b>🧠 Sustento:</b> Según la <i>Embodied Cognition</i>, los conceptos abstractos se comprenden mejor acompañados de gesticulación no verbal.
+                </p>
+                <p style="font-size: 11px; margin-top: 4px; margin-bottom: 0;">
+                    <b>⚙️ Métricas IA:</b> 
+                    <span class="badge-metrica">IMP_promedio &gt; 4.0</span>
+                    <span class="badge-metrica">sigma2_IM &gt; 8.5</span>
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # Segunda fila: 2 columnas
+    col4, col5 = st.columns(2)
+
+    with col4:
         st.markdown(
             f"""
             <div class="tarjeta-pilar" style="border-left-color: #8B5CF6;">
                 <div class="circulo-icono circulo-morado">4</div>
-                <h4 style="margin: 0 0 6px 0; color: #5B21B6;">Teoría de la Carga Cognitiva Extraña</h4>
+                <h4 style="margin: 0 0 4px 0; color: #5B21B6;">Carga Cognitiva y Usabilidad</h4>
+                <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 6px;">
+                    <span class="badge-eje badge-eje-plataforma">🎯 Eje CDigital: Plataforma</span>
+                </div>
+                <div style="margin: 4px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #78350f;">🔴 CDigital actual:</div>
+                    <div class="texto-cdigital-original">"{cd_textos['CD3']}"</div>
+                </div>
                 <div style="margin: 6px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #065f46;">✅ CUN rediseñada:</div>
                     <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p4a}</div>
                     <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p4b}</div>
-                    <div class="pregunta-cun pregunta-op3"><span class="label-pregunta label-pregunta-op3">🗣️ Opción 3:</span> {p4c}</div>
                 </div>
-                <hr style="margin: 8px 0;">
-                <p style="font-size: 12.5px; color: #4B5563;">
-                    <b>🧠 Sustento:</b> Fallas técnicas, video pixelado o congelamientos imponen "carga extraña" a la memoria de trabajo (Sweller, 1988), impidiendo que el estudiante procese el contenido académico real.
+                <hr style="margin: 6px 0;">
+                <p style="font-size: 12px; color: #4B5563; margin: 0;">
+                    <b>🧠 Sustento:</b> Fallas técnicas imponen "carga extraña" a la memoria de trabajo, impidiendo procesar el contenido académico real.
                 </p>
-                <p style="font-size: 12px; margin-top: 6px; margin-bottom: 0;">
-                    <b>⚙️ Métricas de IA:</b> 
+                <p style="font-size: 11px; margin-top: 4px; margin-bottom: 0;">
+                    <b>⚙️ Métricas IA:</b> 
                     <span class="badge-metrica">Jitter_Score &gt; 0.40</span>
                 </p>
             </div>
@@ -804,36 +817,74 @@ def renderizar_cinco_tarjetas():
             unsafe_allow_html=True,
         )
 
-    # ============================================================
-    # TARJETA 5: Aprendizaje Significativo - Claridad y Aplicación (Ausubel)
-    # ============================================================
-    st.markdown(
-        f"""
-        <div class="tarjeta-pilar" style="border-left-color: #EC4899;">
-            <div class="circulo-icono" style="background-color: #EC4899;">5</div>
-            <h4 style="margin: 0 0 6px 0; color: #BE185D;">Aprendizaje Significativo - Claridad y Aplicación</h4>
-            <p style="font-size: 0.75rem; color: #6B7280; margin-top: -4px;">Modelo de Aprendizaje Significativo - Ausubel (1968)</p>
-            <div style="margin: 6px 0;">
-                <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p5a}</div>
-                <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p5b}</div>
-                <div class="pregunta-cun pregunta-op3"><span class="label-pregunta label-pregunta-op3">🗣️ Opción 3:</span> {p5c}</div>
+    with col5:
+        st.markdown(
+            f"""
+            <div class="tarjeta-pilar" style="border-left-color: #EF4444;">
+                <div class="circulo-icono circulo-rojo">5</div>
+                <h4 style="margin: 0 0 4px 0; color: #991B1B;">Satisfacción Global (Ancla)</h4>
+                <div style="font-size: 0.7rem; font-weight: 600; margin-bottom: 6px;">
+                    <span class="badge-eje badge-eje-satisfaccion">🎯 Eje CDigital: Satisfacción</span>
+                </div>
+                <div style="margin: 4px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #78350f;">🔴 CDigital actual:</div>
+                    <div class="texto-cdigital-original">(Ancla histórica - carita general de satisfacción)</div>
+                </div>
+                <div style="margin: 6px 0;">
+                    <div style="font-size: 0.7rem; font-weight: 700; color: #065f46;">✅ CUN rediseñada:</div>
+                    <div class="pregunta-cun pregunta-op1"><span class="label-pregunta label-pregunta-op1">🎓 Opción 1:</span> {p5a}</div>
+                    <div class="pregunta-cun pregunta-op2"><span class="label-pregunta label-pregunta-op2">📋 Opción 2:</span> {p5b}</div>
+                </div>
+                <hr style="margin: 6px 0;">
+                <p style="font-size: 12px; color: #4B5563; margin: 0;">
+                    <b>🧠 Sustento:</b> Ancla histórica que mantiene la trazabilidad con la métrica global de "carita general" de CDigital.
+                </p>
+                <p style="font-size: 11px; margin-top: 4px; margin-bottom: 0;">
+                    <b>⚙️ Métrica IA:</b> 
+                    <span class="badge-metrica">Score_Integrado_MBE</span>
+                </p>
             </div>
-            <hr style="margin: 8px 0;">
-            <p style="font-size: 12.5px; color: #4B5563;">
-                <b>🧠 Sustento Pedagógico:</b> Ausubel (1968) plantea que el aprendizaje significativo ocurre cuando la nueva información se relaciona de manera sustancial con lo que el estudiante ya sabe. No basta con presentar datos: el facilitador debe <b>anclar</b> el nuevo conocimiento en las estructuras cognitivas existentes del estudiante, utilizando ejemplos, analogías y aplicaciones prácticas que den sentido y relevancia al contenido.
-            </p>
-            <p style="font-size: 12px; margin-top: 6px; margin-bottom: 0;">
-                <b>📚 Autores:</b> Ausubel, D. P. (1968). <i>Educational Psychology: A Cognitive View</i>. Holt, Rinehart & Winston.
-            </p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # Matriz de triangulación
+    with st.expander(
+        "📊 Matriz de Triangulación: CDigital → CUN Experience → Métricas IA",
+        expanded=False,
+    ):
+        st.markdown(f"""
+        | Dimensión | CDigital Original | CUN Rediseñada | Eje CDigital | Métricas IA | Umbral |
+        | :--- | :--- | :--- | :--- | :--- | :--- |
+        | **1. Aprendizaje Activo** | "{cd_textos['CD1'][:60]}..." | {p1a} | Docente | `DME_s` / `DTE_ratio` | $< 3.5s$ / $≤ 50\\%$ |
+        | **2. Neuroeducación** | "{cd_textos['CD2'][:60]}..." | {p2a} | Docente | `Tone_CoV` / `Enthusiasm` | $> 0.32$ / $> 0.15$ |
+        | **3. Cognición Encarnada** | (Nueva dimensión) | {p3a} | Docente | `IMP_promedio` / `sigma2_IM` | $> 4.0$ / $> 8.5$ |
+        | **4. Carga Cognitiva** | "{cd_textos['CD3'][:60]}..." | {p4a} | Plataforma | `Jitter_Score` | $> 0.40$ |
+        | **5. Satisfacción Global** | Ancla histórica | {p5a} | Satisfacción | `Score_Integrado_MBE` | $> 6.0$ |
+        """)
 
 
 def renderizar_tarjeta(clave_modelo: str):
-    """Renderiza una tarjeta ejecutiva para un modelo de IA específico (sin preguntas)."""
+    """Renderiza una tarjeta ejecutiva para un modelo de IA específico."""
     info = MODELOS_INFO[clave_modelo]
+    pregunta_key = info.get("pregunta_key", "")
+    p1, p2 = (
+        obtener_preguntas(pregunta_key)
+        if pregunta_key
+        else ("Pregunta no asociada", "Pregunta no asociada")
+    )
+
+    # Badge de eje CDigital
+    if info.get("eje_cdigital") == "Docente":
+        eje_badge = '<span class="badge-eje badge-eje-docente">Eje Docente</span>'
+    elif info.get("eje_cdigital") == "Plataforma":
+        eje_badge = '<span class="badge-eje badge-eje-plataforma">Eje Plataforma</span>'
+    elif info.get("eje_cdigital") == "Satisfacción":
+        eje_badge = (
+            '<span class="badge-eje badge-eje-satisfaccion">Eje Satisfacción</span>'
+        )
+    else:
+        eje_badge = ""
 
     html_card = f"""
     <div class="card-container">
@@ -843,7 +894,16 @@ def renderizar_tarjeta(clave_modelo: str):
                 <span class="card-badge">{clave_modelo}</span>
             </div>
             <div class="card-pilar-text">{info['pilar']}</div>
+            <div class="card-eje-text">{eje_badge}</div>
             <p class="card-body-text">{info['resumen']}</p>
+            <div style="margin-top: 4px;">
+                <div class="card-pregunta card-pregunta-op1">
+                    <span class="label-opcion label-op1">🎓 Opción 1:</span> {p1}
+                </div>
+                <div class="card-pregunta card-pregunta-op2">
+                    <span class="label-opcion label-op2">📋 Opción 2:</span> {p2}
+                </div>
+            </div>
         </div>
         <div>
             <div class="card-rule">
@@ -864,29 +924,28 @@ def renderizar_tarjeta(clave_modelo: str):
 
 @st.dialog("🔬 Fundamento Neuro-Pedagógico y Analítica de IA")
 def mostrar_modal_modelo(clave_modelo: str):
-    """Modal con el fundamento científico completo de un modelo (CON preguntas)."""
+    """Modal con el fundamento científico completo de un modelo."""
     info = MODELOS_INFO[clave_modelo]
     pregunta_key = info.get("pregunta_key", "")
-    p1, p2, p3 = (
+    p1, p2 = (
         obtener_preguntas(pregunta_key)
         if pregunta_key
-        else ("Pregunta no asociada", "Pregunta no asociada", "Pregunta no asociada")
+        else ("Pregunta no asociada", "Pregunta no asociada")
     )
 
     st.markdown(f"### {info['icono']} {info['nombre_gerencial']} (`{clave_modelo}`)")
-    st.caption(f"Categoría: **{info['categoria']}** | Pilar: **{info['pilar']}**")
+    st.caption(
+        f"Categoría: **{info['categoria']}** | Pilar: **{info['pilar']}** | Eje CDigital: **{info.get('eje_cdigital', 'N/A')}**"
+    )
     st.markdown("---")
     st.markdown("#### ❓ Preguntas del Instrumento (*CUN Experience*)")
-    col_m1, col_m2, col_m3 = st.columns(3)
+    col_m1, col_m2 = st.columns(2)
     with col_m1:
         st.markdown("**🎓 Opción 1 (Estudiantil - Informal):**")
         st.info(f"{p1}")
     with col_m2:
         st.markdown("**📋 Opción 2 (Ejecutiva - Formal):**")
         st.info(f"{p2}")
-    with col_m3:
-        st.markdown("**🗣️ Opción 3 (Súper Sencilla):**")
-        st.info(f"{p3}")
     st.markdown("#### 🧠 Sustento Neuro-Pedagógico de la Pregunta")
     st.write(info["sustento_neuropedagogico"])
     st.markdown("---")
@@ -911,10 +970,12 @@ def mostrar_modal_modelo(clave_modelo: str):
 
 
 def renderizar_modelos_ia():
-    """Renderiza la sección de modelos analíticos y tarjetas (sin preguntas)."""
-    st.markdown("### 🔬 Modelos Analíticos y Métricas de IA")
+    """Renderiza la sección de modelos analíticos y tarjetas."""
+    st.markdown(
+        "### 🔬 Modelos Analíticos y Métricas del Modelo Bidireccional de Evaluación"
+    )
     st.write(
-        "A continuación se detallan los 7 modelos multimodales asociados a los pilares pedagógicos:"
+        "A continuación se detallan los 8 modelos multimodales asociados a los pilares pedagógicos, ejes CDigital y preguntas de evaluación:"
     )
 
     cols = st.columns(3)
@@ -923,169 +984,12 @@ def renderizar_modelos_ia():
             renderizar_tarjeta(clave)
 
 
-def renderizar_tabla_comparativa():
-    """Renderiza la tabla comparativa del Modelo CUN vs Plataformas Competidoras."""
-    with st.expander(
-        "📊 Comparativa: Modelo CUN vs Plataformas Competidoras", expanded=False
-    ):
-        st.markdown(
-            """
-        <table class="tabla-comparativa">
-            <thead>
-                <tr>
-                    <th>Característica</th>
-                    <th>✅ Modelo CUN</th>
-                    <th>TeachFX</th>
-                    <th>Edthena</th>
-                    <th>Sibme</th>
-                    <th>HiTeach</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><b>Enfoque Principal</b></td>
-                    <td>Análisis completo video/audio con base neuropedagógica (4 Pilares + CUN Experience)</td>
-                    <td>Análisis de discurso en el aula</td>
-                    <td>Coaching virtual con IA</td>
-                    <td>IA, coaching y colaboración</td>
-                    <td>Enseñanza digital con gamificación</td>
-                </tr>
-                <tr>
-                    <td><b>Fundamento Pedagógico</b></td>
-                    <td class="ventaja">SÍ (4 Pilares)</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>Vinculación con Encuesta</b></td>
-                    <td class="ventaja">SÍ (CUN Experience)</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>Análisis de Audio</b></td>
-                    <td class="ventaja">4 métricas</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>Análisis de Video</b></td>
-                    <td class="ventaja">3 métricas</td>
-                    <td>NO</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                </tr>
-                <tr>
-                    <td><b>Métrica Técnica</b></td>
-                    <td class="ventaja">SÍ (Jitter_Score)</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>Clasificación de Clases</b></td>
-                    <td class="ventaja">SÍ (Aburrido / Entretenido)</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>Transcripción Automática</b></td>
-                    <td class="brecha">NO</td>
-                    <td>NO</td>
-                    <td>NO</td>
-                    <td class="ventaja">SÍ</td>
-                    <td>NO</td>
-                </tr>
-                <tr>
-                    <td><b>IA Generativa / Copilot</b></td>
-                    <td class="brecha">NO</td>
-                    <td>NO</td>
-                    <td class="ventaja">SÍ (AI Coach)</td>
-                    <td class="ventaja">SÍ (Copilot)</td>
-                    <td class="ventaja">SÍ (AI GPT)</td>
-                </tr>
-                <tr>
-                    <td><b>Coaching / Feedback</b></td>
-                    <td class="brecha">❌ No aplica</td>
-                    <td class="ventaja">SÍ</td>
-                    <td class="ventaja">SÍ</td>
-                    <td class="ventaja">SÍ</td>
-                    <td class="brecha">❌ No</td>
-                </tr>
-                <tr>
-                    <td><b>Automación</b></td>
-                    <td class="ventaja">100% Automatizado</td>
-                    <td>100%</td>
-                    <td>100%</td>
-                    <td>Híbrido</td>
-                    <td>Automatizado</td>
-                </tr>
-                <tr>
-                    <td><b>Modelo de Precios</b></td>
-                    <td class="ventaja">💰 Sin costo</td>
-                    <td>💰 $10k-$30k</td>
-                    <td>💰 ~$3,450/año</td>
-                    <td>💰 Por usuario</td>
-                    <td>💰 ~$30 USD/año</td>
-                </tr>
-                <tr>
-                    <td><b>Sustento Científico</b></td>
-                    <td class="ventaja">SÍ (APA, DOI)</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                    <td>SÍ</td>
-                    <td>NO</td>
-                </tr>
-            </tbody>
-        </table>
-        """,
-            unsafe_allow_html=True,
-        )
-
-        st.markdown(
-            """
-        <div style="margin-top: 15px; padding: 15px 20px; background-color: #f0fdf4; border-radius: 10px; border: 1px solid #86efac;">
-            <p style="font-weight: 700; color: #065f46; margin: 0 0 8px 0;">✅ Ventajas del Modelo CUN</p>
-            <ul style="margin: 0; font-size: 0.9rem;">
-                <li><b>Sin costo de licencias</b> — Ahorro de $10k-$30k anuales</li>
-                <li><b>Fundamento Pedagógico</b> — 4 Pilares + Preguntas CUN</li>
-                <li><b>Visión 360°</b> — Audio + Video + Técnica + Entorno</li>
-                <li><b>Clasificación Automática</b> — Aburrido vs Entretenido</li>
-                <li><b>100% Automatizado</b> — Sin revisión humana</li>
-            </ul>
-        </div>
-        <div style="margin-top: 10px; padding: 15px 20px; background-color: #fef2f2; border-radius: 10px; border: 1px solid #fca5a5;">
-            <p style="font-weight: 700; color: #7f1d1d; margin: 0 0 8px 0;">⚠️ Brechas del Modelo CUN</p>
-            <ul style="margin: 0; font-size: 0.9rem;">
-                <li><b>Transcripción automática</b> — Lo tiene Sibme</li>
-                <li><b>IA Generativa / Copilot</b> — Lo tienen Edthena, Sibme, HiTeach</li>
-                <li><b>Coaching/Feedback con IA</b> — Lo tienen Edthena y Sibme</li>
-            </ul>
-        </div>
-        <p style="font-size: 0.75rem; color: #888; margin-top: 10px; font-style: italic;">
-            📌 Tabla comparativa basada en información de la presentación y referencias públicas de cada plataforma
-        </p>
-        """,
-            unsafe_allow_html=True,
-        )
-
-
 def renderizar_seccion_cun360():
     """Renderiza la sección CUN360 con justificación, objetivos y botón para ver ejemplo."""
     st.markdown(
         """
         <div class="cun360-header">
-            <h2>🏢 CUN360 - Ecosistema de Evaluación y Desarrollo Facilitador</h2>
+            <h2>🏢 CUN360 - Ecosistema de Evaluación y Desarrollo Docente</h2>
             <p>Transformamos la evaluación en una herramienta de crecimiento continuo</p>
         </div>
         """,
@@ -1099,8 +1003,8 @@ def renderizar_seccion_cun360():
                 📌 ¿Por qué CUN360?
             </p>
             <p>
-                <b>La retroalimentación continua mejora la práctica facilitadora.</b> CUN360 es un ecosistema 
-                integral que almacena los resultados de la evaluación facilitadora (percepción estudiantil + métricas 
+                <b>La retroalimentación continua mejora la práctica docente.</b> CUN360 es un ecosistema 
+                integral que almacena los resultados de la evaluación docente (percepción estudiantil + métricas 
                 de IA) para ofrecer <b>retroalimentación personalizada, seguimiento evolutivo y datos 
                 accionables</b> para la toma de decisiones institucionales.
             </p>
@@ -1117,11 +1021,11 @@ def renderizar_seccion_cun360():
         st.markdown(
             """
             <div class="cun360-card-beneficio">
-                <h4>🎓 Para el Facilitador</h4>
+                <h4>🎓 Para el Docente</h4>
                 <ul>
                     <li>✅ <b>Calificación por clase:</b> Nota numérica y semáforo para cada clase grabada</li>
                     <li>✅ <b>Calificación estudiantes:</b> Promedio de respuestas de la encuesta CUN Experience</li>
-                    <li>✅ <b>Calificación IA:</b> Puntaje objetivo generado por los modelos</li>
+                    <li>✅ <b>Calificación IA:</b> Puntaje objetivo generado por los modelos del Modelo Bidireccional de Evaluación</li>
                     <li>✅ <b>Calificación Global:</b> Puntaje combinado (estudiantes + IA) ponderado</li>
                     <li>✅ <b>Evolución temporal:</b> Gráfica de mejora o decrecimiento en el tiempo</li>
                     <li>✅ <b>Recomendaciones personalizadas:</b> Sugerencias accionables para cada métrica</li>
@@ -1137,9 +1041,9 @@ def renderizar_seccion_cun360():
                 <h4>🏢 Para Capital Social (RH)</h4>
                 <ul>
                     <li>✅ <b>Tablero Power BI:</b> Dashboard interactivo con todos los indicadores agregados</li>
-                    <li>✅ <b>Ranking de facilitadores:</b> Listado con mejor desempeño y mayor progreso</li>
+                    <li>✅ <b>Ranking de docentes:</b> Listado con mejor desempeño y mayor progreso</li>
                     <li>✅ <b>Filtros avanzados:</b> Por facultad, programa, asignatura, rango de fechas</li>
-                    <li>✅ <b>Alertas tempranas:</b> Detección de facilitadores que requieren apoyo urgente</li>
+                    <li>✅ <b>Alertas tempranas:</b> Detección de docentes que requieren apoyo urgente</li>
                     <li>✅ <b>Programas de formación:</b> Generación automática de recomendaciones formativas</li>
                     <li>✅ <b>Dashboard de acreditación:</b> Evidencia objetiva para procesos de acreditación</li>
                 </ul>
@@ -1156,13 +1060,13 @@ def renderizar_seccion_cun360():
         st.markdown(
             """
             <div style="background-color: #f0fdf4; padding: 16px 20px; border-radius: 10px; border: 1px solid #86efac; height: 100%;">
-                <h5 style="color: #065f46; margin: 0 0 8px 0;">🎓 Para el Facilitador</h5>
+                <h5 style="color: #065f46; margin: 0 0 8px 0;">🎓 Para el Docente</h5>
                 <ul style="font-size: 0.9rem; color: #333; line-height: 1.8; padding-left: 20px; margin: 0;">
-                    <li>Empoderar al facilitador con datos objetivos sobre su práctica</li>
+                    <li>Empoderar al docente con datos objetivos sobre su práctica</li>
                     <li>Fomentar una cultura de mejora continua y autoevaluación</li>
                     <li>Reducir la ansiedad de la evaluación al hacerla transparente</li>
                     <li>Proveer retroalimentación accionable (no solo una nota, qué hacer)</li>
-                    <li>Reconocer y visibilizar las buenas prácticas facilitadoras</li>
+                    <li>Reconocer y visibilizar las buenas prácticas docentes</li>
                 </ul>
             </div>
             """,
@@ -1174,10 +1078,10 @@ def renderizar_seccion_cun360():
             <div style="background-color: #eff6ff; padding: 16px 20px; border-radius: 10px; border: 1px solid #93c5fd; height: 100%;">
                 <h5 style="color: #1e40af; margin: 0 0 8px 0;">🏢 Para Capital Social</h5>
                 <ul style="font-size: 0.9rem; color: #333; line-height: 1.8; padding-left: 20px; margin: 0;">
-                    <li>Transformar la gestión del talento facilitador de reactiva a proactiva</li>
-                    <li>Reducir la deserción y mejorar la retención de facilitadores</li>
-                    <li>Asegurar estándares mínimos de calidad facilitadora</li>
-                    <li>Crear un banco de mejores prácticas facilitadoras para compartir</li>
+                    <li>Transformar la gestión del talento docente de reactiva a proactiva</li>
+                    <li>Reducir la deserción y mejorar la retención de profesores</li>
+                    <li>Asegurar estándares mínimos de calidad docente</li>
+                    <li>Crear un banco de mejores prácticas docentes para compartir</li>
                     <li>Posicionar a la CUN como líder en innovación educativa</li>
                 </ul>
             </div>
@@ -1210,16 +1114,16 @@ def mostrar_modal_ejemplo_calificacion():
     """Modal que muestra un ejemplo detallado de calificación de una clase."""
 
     ejemplo = {
-        "facilitador": "Juan Pérez",
+        "docente": "Juan Pérez",
         "asignatura": "Cálculo I",
         "fecha": "15/05/2026",
         "duracion": "90 min",
         "calificaciones": {
             "P1_Aprendizaje_Activo": 8.5,
             "P2_Neuroeducacion": 6.2,
-            "P3_Dinamismo_Visual": 9.1,
+            "P3_Cognicion_Encarnada": 9.1,
             "P4_Carga_Cognitiva": 4.3,
-            "P5_Aprendizaje_Significativo": 7.8,
+            "P5_Satisfaccion_Global": 7.8,
         },
         "metricas_ia": {
             "DME_s": 2.8,
@@ -1229,8 +1133,9 @@ def mostrar_modal_ejemplo_calificacion():
             "IMP_promedio": 5.2,
             "sigma2_IM": 9.8,
             "Jitter_Score": 0.35,
+            "Score_Integrado_MBE": 7.2,
         },
-        "global": 7.2,
+        "global": 7.0,
         "estado": "Aceptable",
     }
 
@@ -1239,7 +1144,7 @@ def mostrar_modal_ejemplo_calificacion():
         f"""
         <div class="modal-ejemplo-header">
             <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                <span>👨‍🏫 {ejemplo['facilitador']}</span>
+                <span>👨‍🏫 {ejemplo['docente']}</span>
                 <span>📚 {ejemplo['asignatura']}</span>
                 <span>📅 {ejemplo['fecha']}</span>
                 <span>⏱️ {ejemplo['duracion']}</span>
@@ -1253,7 +1158,7 @@ def mostrar_modal_ejemplo_calificacion():
     col_radar, col_barras = st.columns([1, 1.2])
 
     with col_radar:
-        st.markdown("#### 🕷️ Métricas IA (Modelos)")
+        st.markdown("#### 🕷️ Métricas IA (Modelo Bidireccional de Evaluación)")
         try:
             import plotly.graph_objects as go
 
@@ -1265,6 +1170,7 @@ def mostrar_modal_ejemplo_calificacion():
                 "Presencia",
                 "Dinamismo",
                 "Estabilidad",
+                "Índice MBE",
             ]
             valores = [
                 max(0, min(10, 10 - ejemplo["metricas_ia"]["DME_s"])),
@@ -1274,6 +1180,7 @@ def mostrar_modal_ejemplo_calificacion():
                 max(0, min(10, ejemplo["metricas_ia"]["IMP_promedio"] * 1.92)),
                 max(0, min(10, ejemplo["metricas_ia"]["sigma2_IM"] * 1.02)),
                 max(0, min(10, ejemplo["metricas_ia"]["Jitter_Score"] * 25)),
+                ejemplo["metricas_ia"]["Score_Integrado_MBE"],
             ]
             fig = go.Figure(
                 data=go.Scatterpolar(
@@ -1320,16 +1227,13 @@ def mostrar_modal_ejemplo_calificacion():
             ),
             ("P2 - Neuroeducación", ejemplo["calificaciones"]["P2_Neuroeducacion"]),
             (
-                "P3 - Dinamismo Visual",
-                ejemplo["calificaciones"]["P3_Dinamismo_Visual"],
+                "P3 - Cognición Encarnada",
+                ejemplo["calificaciones"]["P3_Cognicion_Encarnada"],
             ),
+            ("P4 - Carga Cognitiva", ejemplo["calificaciones"]["P4_Carga_Cognitiva"]),
             (
-                "P4 - Carga Cognitiva",
-                ejemplo["calificaciones"]["P4_Carga_Cognitiva"],
-            ),
-            (
-                "P5 - Aprendizaje Significativo",
-                ejemplo["calificaciones"]["P5_Aprendizaje_Significativo"],
+                "P5 - Satisfacción Global",
+                ejemplo["calificaciones"]["P5_Satisfaccion_Global"],
             ),
         ]
         for label, valor in preguntas:
@@ -1482,25 +1386,25 @@ def mostrar_modal_ejemplo_calificacion():
                 ],
             }
         )
-    if ejemplo["calificaciones"]["P3_Dinamismo_Visual"] < 6.0:
+    if ejemplo["calificaciones"]["P3_Cognicion_Encarnada"] < 6.0:
         recomendaciones.append(
             {
-                "area": "🖼️ Dinamismo Visual (P3)",
+                "area": "🧍 Cognición Encarnada (P3)",
                 "sugerencias": [
-                    "Varía los recursos visuales: imágenes, diagramas, ejemplos",
-                    "No uses siempre el mismo formato de diapositiva",
-                    "Incorpora elementos multimedia para mantener el interés",
+                    "Gesticula más al explicar conceptos clave",
+                    "Mantén contacto visual con la cámara",
+                    "Varía tu posición frente a la cámara",
                 ],
             }
         )
-    if ejemplo["calificaciones"]["P5_Aprendizaje_Significativo"] < 6.0:
+    if ejemplo["calificaciones"]["P5_Satisfaccion_Global"] < 6.0:
         recomendaciones.append(
             {
-                "area": "📚 Claridad y Aplicación (P5)",
+                "area": "⭐ Satisfacción Global (P5)",
                 "sugerencias": [
-                    "Usa ejemplos concretos y aplicaciones prácticas",
-                    "Conecta los nuevos conceptos con lo que los estudiantes ya saben",
-                    "Explica para qué sirve lo que estás enseñando",
+                    "Solicita retroalimentación específica a los estudiantes",
+                    "Revisa las áreas de mejora identificadas por la IA",
+                    "Implementa al menos una sugerencia por clase",
                 ],
             }
         )
@@ -1543,8 +1447,8 @@ def mostrar_modal_ejemplo_calificacion():
             <p style="margin: 0; font-weight: 600; color: #1e40af;">📖 Lecturas Recomendadas</p>
             <ul style="font-size: 0.85rem; margin: 4px 0 0 0; padding-left: 20px;">
                 <li>Hattie - "Visible Learning"</li>
-                <li>Mayer - "Multimedia Learning"</li>
-                <li>Ausubel - "Educational Psychology"</li>
+                <li>Barsalou - "Grounded Cognition"</li>
+                <li>Sweller - "Cognitive Load Theory"</li>
             </ul>
         </div>
         """,
@@ -1568,7 +1472,7 @@ def renderizar_footer():
                 <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 10px;">
                     <span style="color: #1a7a3a; font-weight: 600;">📊 CUN Experience</span>
                     <span style="color: #666;">|</span>
-                    <span style="color: #1a7a3a; font-weight: 600;">🤖 Modelo Bidireccional de Evaluación Facilitadora</span>
+                    <span style="color: #1a7a3a; font-weight: 600;">🤖 Modelo Bidireccional de Evaluación</span>
                     <span style="color: #666;">|</span>
                     <span style="color: #1a7a3a; font-weight: 600;">🧠 Neuroeducación</span>
                 </div>
@@ -1576,7 +1480,7 @@ def renderizar_footer():
                     © 2026 CUN - Corporación Unificada Nacional de Educación Superior
                 </p>
                 <p style="color: #aaa; font-size: 0.7rem; margin: 4px 0 0 0;">
-                    Desarrollado con ❤️ para el fortalecimiento del Capital Social y la Excelencia de Facilitador
+                    Desarrollado con ❤️ para el fortalecimiento del Capital Social y la Excelencia Docente
                 </p>
             </div>
             """,
@@ -1587,22 +1491,12 @@ def renderizar_footer():
 # ====================================================================
 # FUNCIÓN PRINCIPAL
 # ====================================================================
-def main():
+def main(df_filtrado=None):
     """Función principal que orquesta todas las secciones de la aplicación."""
     inyectar_estilos()
-    renderizar_banner_principal()
-    renderizar_version_preguntas()
-    renderizar_proposito_estrategico()
-
-    # ================================================================
-    # RENDERIZA LAS 5 TARJETAS PEDAGÓGICAS JUNTAS
-    # ================================================================
-    renderizar_cinco_tarjetas()
+    renderizar_justificacion_pedagogica()
     st.divider()
-
     renderizar_modelos_ia()
-    st.divider()
-    renderizar_tabla_comparativa()
     st.divider()
     renderizar_seccion_cun360()
     renderizar_footer()
