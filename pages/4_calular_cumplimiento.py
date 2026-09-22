@@ -514,7 +514,7 @@ def bloque_tabla(sub: pd.DataFrame, info: dict):
     if info["metrica"] in tabla.columns:
         tabla[info["metrica"]] = tabla[info["metrica"]].round(4)
 
-    styled = tabla.style.applymap(colorear_nivel, subset=["Nivel"])
+    styled = tabla.style.map(colorear_nivel, subset=["Nivel"])
 
     st.dataframe(
         styled,
