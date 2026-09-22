@@ -1,0 +1,692 @@
+/* ====================================================================
+   MBE · Modelo Bidireccional de Evaluación — Hoja de Estilos
+   ==================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* ====================================================================
+   BANNERS PRINCIPALES
+   ==================================================================== */
+.banner-mbe {
+    background: linear-gradient(135deg, #0d5a2a 0%, #1a7a3a 50%, #2e9e4e 100%);
+    color: white;
+    padding: 28px 24px;
+    border-radius: 14px;
+    text-align: center;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+.banner-mbe h1 {
+    color: white !important;
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+.banner-mbe .subtitulo {
+    margin-top: 8px;
+    font-size: 1.05rem;
+    opacity: 0.95;
+    font-weight: 400;
+}
+.banner-mbe .badges {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.banner-seccion {
+    background: linear-gradient(135deg, #0d5a2a, #1a7a3a);
+    color: white;
+    padding: 18px 22px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 22px 0 18px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+}
+.banner-seccion h2 {
+    color: white !important;
+    margin: 0;
+    font-size: 1.5rem;
+}
+.banner-seccion p {
+    margin: 6px 0 0 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* ====================================================================
+   BADGES GENÉRICOS
+   ==================================================================== */
+.badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.badge-verde   { background-color: #e8f5e9; color: #1a7a3a; }
+.badge-azul    { background-color: #dbeafe; color: #1e40af; }
+.badge-amarillo{ background-color: #fef3c7; color: #92400e; }
+.badge-rojo    { background-color: #fee2e2; color: #991b1b; }
+.badge-gris    { background-color: #f3f4f6; color: #374151; }
+.badge-blanco  { background-color: rgba(255,255,255,0.2); color: white; }
+
+/* ====================================================================
+   BADGES DE NIVEL (5 niveles psicométricos)
+   ==================================================================== */
+.nivel-deficiente  { background-color: #fee2e2; color: #991b1b; }
+.nivel-bajo        { background-color: #fed7aa; color: #9a3412; }
+.nivel-promedio    { background-color: #fef3c7; color: #92400e; }
+.nivel-alto        { background-color: #d1fae5; color: #065f46; }
+.nivel-sobresaliente{ background-color: #bbf7d0; color: #14532d; }
+
+/* ====================================================================
+   TARJETAS DE MODELO (M0-M7)
+   ==================================================================== */
+.modelo-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 6px solid #1a7a3a;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.modelo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+.modelo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.modelo-titulo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a7a3a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.modelo-metrica {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid #bbf7d0;
+    font-weight: 700;
+}
+.modelo-peso {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background-color: #eef2ff;
+    color: #4338ca;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+}
+.modelo-body {
+    font-size: 0.88rem;
+    color: #374151;
+    line-height: 1.55;
+}
+.modelo-body p {
+    margin: 4px 0;
+}
+.modelo-body strong {
+    color: #1a7a3a;
+}
+
+/* ====================================================================
+   TABLA DE 5 NIVELES (por modelo)
+   ==================================================================== */
+.tabla-niveles {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.78rem;
+}
+.tabla-niveles th {
+    background-color: #1a7a3a;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.tabla-niveles td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+    color: #374151;
+}
+.tabla-niveles tr:nth-child(even) td {
+    background-color: #f9fafb;
+}
+.tabla-niveles tr:hover td {
+    background-color: #f0fdf4;
+}
+.tabla-niveles .celda-nivel {
+    font-weight: 700;
+    white-space: nowrap;
+}
+.tabla-niveles .celda-rango {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #1e40af;
+}
+.tabla-niveles .celda-desc {
+    font-style: italic;
+    color: #6b7280;
+}
+/* ====================================================================
+   MBE · Modelo Bidireccional de Evaluación — Hoja de Estilos Global
+   ==================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+/* ====================================================================
+   ANIMACIONES
+   ==================================================================== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+@keyframes shine {
+    0%   { left: -100%; }
+    50%  { left: 100%; }
+    100% { left: 100%; }
+}
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+@keyframes pulse {
+    0%   { transform: scale(1) rotate(45deg); opacity: 0.2; }
+    50%  { transform: scale(1.05) rotate(45deg); opacity: 0.35; }
+    100% { transform: scale(1) rotate(45deg); opacity: 0.2; }
+}
+@keyframes gradientMove {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ====================================================================
+   SIDEBAR VERDE
+   ==================================================================== */
+[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #0d5a2a, #1a7a3a, #2e9e4e) !important;
+}
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+.footer-text {
+    text-align: center;
+    color: #e0e0e0 !important;
+    font-size: 0.85rem;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ====================================================================
+   BANNER PRINCIPAL MBE
+   ==================================================================== */
+.banner-mbe {
+    background: linear-gradient(135deg, #0d5a2a 0%, #1a7a3a 50%, #2e9e4e 100%);
+    color: white;
+    padding: 26px 24px;
+    border-radius: 14px;
+    text-align: center;
+    margin-bottom: 22px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out;
+}
+.banner-mbe::before {
+    content: "";
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+    animation: rotate 20s linear infinite;
+    pointer-events: none;
+}
+.banner-mbe h1 {
+    color: white !important;
+    margin: 0;
+    font-size: 2.1rem;
+    position: relative;
+    z-index: 1;
+}
+.banner-mbe p,
+.banner-mbe .subtitulo {
+    margin-top: 8px;
+    font-size: 1rem;
+    opacity: 0.95;
+    position: relative;
+    z-index: 1;
+}
+
+/* ====================================================================
+   BANNER DE SECCIÓN
+   ==================================================================== */
+.banner-seccion {
+    background: linear-gradient(135deg, #0d5a2a, #1a7a3a);
+    color: white;
+    padding: 16px 22px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 22px 0 18px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+    animation: fadeInUp 0.5s ease-out;
+}
+.banner-seccion h2 {
+    color: white !important;
+    margin: 0;
+    font-size: 1.4rem;
+}
+.banner-seccion p {
+    margin: 6px 0 0 0;
+    font-size: 0.88rem;
+    opacity: 0.9;
+}
+
+/* ====================================================================
+   BANNER POR MODELO (con brillo lateral)
+   ==================================================================== */
+.banner-modelo {
+    background: linear-gradient(135deg, #0d5a2a, #1a7a3a);
+    color: white;
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin: 24px 0 14px 0;
+    animation: slideInLeft 0.5s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+.banner-modelo::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shine 3s infinite;
+}
+.banner-modelo h3 {
+    color: white !important;
+    margin: 0;
+    font-size: 1.25rem;
+    position: relative;
+    z-index: 1;
+}
+.banner-modelo p {
+    margin: 4px 0 0 0;
+    font-size: 0.82rem;
+    opacity: 0.9;
+    position: relative;
+    z-index: 1;
+}
+
+/* ====================================================================
+   CARDS DE NIVEL (CARNOSAS) — con hover completo
+   ==================================================================== */
+.nivel-card {
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    height: 100%;
+    border: 2px solid transparent;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+.nivel-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    filter: brightness(1.03);
+}
+.nivel-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.6) 50%, transparent 70%);
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+.nivel-card:hover::before { left: 100%; }
+
+.nivel-card .icono-nivel {
+    font-size: 1.8rem;
+    line-height: 1;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+.nivel-card:hover .icono-nivel {
+    transform: scale(1.2) rotate(-5deg);
+}
+
+.nivel-card .nombre-nivel {
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+    transition: letter-spacing 0.3s ease;
+}
+.nivel-card:hover .nombre-nivel {
+    letter-spacing: 1.5px;
+}
+
+.nivel-card .rango {
+    font-family: 'Courier New', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    background: rgba(255,255,255,0.75);
+    padding: 3px 8px;
+    border-radius: 6px;
+    display: inline-block;
+    margin: 8px 0;
+    backdrop-filter: blur(4px);
+    transition: background 0.3s ease;
+}
+.nivel-card:hover .rango { background: rgba(255,255,255,0.95); }
+
+.nivel-card .explicacion {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: #1f2937;
+    line-height: 1.35;
+    margin: 8px 0;
+}
+.nivel-card .sustento {
+    font-size: 0.7rem;
+    font-style: italic;
+    color: #4b5563;
+    line-height: 1.3;
+    border-top: 1px dashed rgba(0,0,0,0.15);
+    padding-top: 6px;
+    margin-top: 8px;
+}
+.nivel-card .conteo {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #111827;
+    background: rgba(255,255,255,0.85);
+    padding: 4px 10px;
+    border-radius: 999px;
+    display: inline-block;
+    margin-top: 8px;
+    transition: all 0.3s ease;
+}
+.nivel-card:hover .conteo {
+    background: rgba(255,255,255,1);
+    transform: scale(1.08);
+}
+
+/* ====================================================================
+   BADGES GENÉRICOS
+   ==================================================================== */
+.badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+.badge-verde   { background-color: #e8f5e9; color: #1a7a3a; }
+.badge-azul    { background-color: #dbeafe; color: #1e40af; }
+.badge-amarillo{ background-color: #fef3c7; color: #92400e; }
+.badge-rojo    { background-color: #fee2e2; color: #991b1b; }
+.badge-gris    { background-color: #f3f4f6; color: #374151; }
+.badge-blanco  { background-color: rgba(255,255,255,0.2); color: white; }
+
+/* ====================================================================
+   BADGES DE NIVEL (5 niveles psicométricos)
+   ==================================================================== */
+.nivel-deficiente   { background-color: #fee2e2; color: #991b1b; }
+.nivel-bajo         { background-color: #fed7aa; color: #9a3412; }
+.nivel-promedio     { background-color: #fef3c7; color: #92400e; }
+.nivel-alto         { background-color: #d1fae5; color: #065f46; }
+.nivel-sobresaliente{ background-color: #bbf7d0; color: #14532d; }
+
+/* ====================================================================
+   TARJETAS DE MODELO
+   ==================================================================== */
+.modelo-card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-left: 6px solid #1a7a3a;
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.modelo-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+}
+.modelo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+.modelo-titulo {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #1a7a3a;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.modelo-metrica {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    background-color: #f0fdf4;
+    color: #166534;
+    padding: 3px 10px;
+    border-radius: 6px;
+    border: 1px solid #bbf7d0;
+    font-weight: 700;
+}
+.modelo-peso {
+    font-size: 0.72rem;
+    font-weight: 700;
+    background-color: #eef2ff;
+    color: #4338ca;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+}
+.modelo-body {
+    font-size: 0.88rem;
+    color: #374151;
+    line-height: 1.55;
+}
+.modelo-body p { margin: 4px 0; }
+.modelo-body strong { color: #1a7a3a; }
+
+/* ====================================================================
+   TABLA DE 5 NIVELES (HTML) — por modelo
+   ==================================================================== */
+.tabla-niveles {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 14px;
+    font-size: 0.78rem;
+}
+.tabla-niveles th {
+    background-color: #1a7a3a;
+    color: white;
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+.tabla-niveles td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    vertical-align: top;
+    color: #374151;
+}
+.tabla-niveles tr:nth-child(even) td { background-color: #f9fafb; }
+.tabla-niveles tr:hover td { background-color: #f0fdf4; }
+.tabla-niveles .celda-nivel { font-weight: 700; white-space: nowrap; }
+.tabla-niveles .celda-rango {
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #1e40af;
+}
+.tabla-niveles .celda-desc { font-style: italic; color: #6b7280; }
+
+/* ====================================================================
+   LIKERT TAGS (para P-VES)
+   ==================================================================== */
+.likert-tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.72rem;
+    margin-right: 6px;
+}
+.likert-1 { background: #fee2e2; color: #991b1b; }
+.likert-2 { background: #fed7aa; color: #9a3412; }
+.likert-3 { background: #fef3c7; color: #92400e; }
+.likert-4 { background: #d1fae5; color: #065f46; }
+.likert-5 { background: #bbf7d0; color: #14532d; }
+
+/* ====================================================================
+   CARDS DE REFERENCIA (para P-VES)
+   ==================================================================== */
+.ref-card {
+    background: #f9fafb;
+    border-left: 4px solid #1a7a3a;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+}
+.ref-card h5 {
+    margin: 0 0 8px 0;
+    color: #1a7a3a;
+    font-size: 0.9rem;
+}
+.ref-card ul {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.82rem;
+    color: #374151;
+}
+.ref-card li { margin: 4px 0; line-height: 1.4; }
+
+/* ====================================================================
+   EXPANDER — HOVER
+   ==================================================================== */
+details {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+details:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateX(2px);
+}
+details summary { transition: color 0.2s ease; }
+details:hover summary { color: #1a7a3a !important; }
+
+/* ====================================================================
+   DATAFRAME
+   ==================================================================== */
+[data-testid="stDataFrame"] {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* ====================================================================
+   RADIO — SELECTOR
+   ==================================================================== */
+div[role="radiogroup"] label {
+    padding: 8px 16px !important;
+    border-radius: 30px !important;
+    transition: all 0.25s ease !important;
+    font-weight: 600 !important;
+}
+div[role="radiogroup"] label:hover {
+    background: rgba(34, 197, 94, 0.1) !important;
+    transform: translateY(-2px);
+}
+
+/* ====================================================================
+   BOTONES
+   ==================================================================== */
+div.stButton > button {
+    background: linear-gradient(135deg, #1a7a3a, #2e9e4e) !important;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 600 !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.82rem !important;
+    transition: all 0.3s ease !important;
+}
+div.stButton > button:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(26, 122, 58, 0.4) !important;
+}
